@@ -1,0 +1,90 @@
+.sphere {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    margin: 50px auto;
+}
+
+.sphere__list {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 0;
+}
+
+.sphere__list.active {
+    animation: rotate 30s infinite linear;
+}
+
+.sphere__list:hover {
+    animation-play-state: paused;
+}
+
+.sphere__label-point, .sphere__label-tooltip {
+    position: absolute;
+    top: 120%;
+    left: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.sphere__label-text {
+    margin-right: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.sphere__label-point input, .sphere__label-tooltip input {
+    width: 50px;
+    border: none;
+    border-bottom: 1px solid #303030;
+    text-align: center;
+}
+
+.sphere__label-tooltip {
+    left: 60%;
+}
+
+.sphere__item {
+    width: 5px;
+    height: 5px;
+    border: 1px solid #303030;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.sphere__item.filled {
+    background-color: #303030;
+}
+
+.sphere__list:hover .sphere__tooltip {
+    animation-play-state: paused;
+}
+
+.sphere__tooltip {
+    position: absolute;
+    z-index: 100;
+}
+
+.sphere__tooltip.active {
+    animation: rotate 30s infinite linear reverse;
+}
+
+.sphere__link {
+    display: block;
+    position: absolute;
+    text-decoration: none;
+    color: #303030;
+    background-color: #fff;
+    border: 1px solid #303030;
+    padding: 5px;
+    border-radius: 25px;
+}
+
+@keyframes rotate {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -2,7 +2,7 @@
 
 
 ## Demo Link
-[]()
+[https://khromovalex.github.io/data-prime/dist/](https://khromovalex.github.io/data-prime/dist/)
 
 
 ## Available Scripts
