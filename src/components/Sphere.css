@@ -3,7 +3,10 @@
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    margin: 50px auto;
+    margin: 250px auto;
+    perspective: 5000px;
+    transform-style: preserve-3d;
+    perspective-origin: 50% 50%;
 }
 
 .sphere__list {
@@ -13,13 +16,21 @@
     top: 0;
     bottom: 0;
     padding: 0;
+    perspective: 5000px;
+    transform-style: preserve-3d;
+    perspective-origin: 50% 50%;
+    border-radius: 50%;
 }
 
 .sphere__list.active {
     animation: rotate 30s infinite linear;
 }
 
-.sphere__list:hover {
+.sphere__tooltip.active, .sphere__item.active {
+    animation: rotate 30s infinite linear reverse;
+}
+
+.sphere:hover .sphere__list, .sphere:hover .sphere__tooltip, .sphere:hover .sphere__item {
     animation-play-state: paused;
 }
 
@@ -49,28 +60,23 @@
 }
 
 .sphere__item {
-    width: 5px;
-    height: 5px;
+    width: 7px;
+    height: 7px;
     border: 1px solid #303030;
     border-radius: 50%;
     position: absolute;
+    transform-style: preserve-3d;
+    top: 0;
+    left: 0;
 }
 
 .sphere__item.filled {
     background-color: #303030;
 }
 
-.sphere__list:hover .sphere__tooltip {
-    animation-play-state: paused;
-}
-
 .sphere__tooltip {
     position: absolute;
     z-index: 100;
-}
-
-.sphere__tooltip.active {
-    animation: rotate 30s infinite linear reverse;
 }
 
 .sphere__link {
@@ -82,9 +88,16 @@
     border: 1px solid #303030;
     padding: 5px;
     border-radius: 25px;
+    transform: translateZ(251px);
 }
 
 @keyframes rotate {
-    0%   { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0%   { transform: rotate3d(1, 1, 0, 0deg); transform-style: preserve-3d; }
+    100% { transform: rotate3d(1, 1, 0, 360deg); transform-style: preserve-3d; }
+}
+
+.sphere__wrapper {
+    perspective: 5000px;
+    transform-style: preserve-3d;
+    perspective-origin: 50% 50%;
 }

@@ -10,41 +10,49 @@ class SphereItem extends React.PureComponent {
     }
 
     getCoord() {
-        const top = this.getRandomInt(1, 99);
-        let left = this.getRandomInt(1, 99);
+        const y = this.getRandomInt(0, 500);
+        let x = this.getRandomInt(0, 500);
+        let z = this.getRandomInt(-250, 250);
+        let operator = String(z)[0] === '-' ? '-' : String(z)[0] === '0' ? 0 : '+';
 
-        if( (top > 0 && top <= 5) || (top > 95)) {
-            left = this.getRandomInt(45, 55);
+        if( (y >= 0 && y <= 25) || (y > 475)) {
+            x = this.getRandomInt(225, 275);
         }
-        if( (top > 5 && top <= 10) || (top > 90 && top <= 95)) {
-            left = this.getRandomInt(30, 69);
+        if( (y > 25 && y <= 50) || (y > 450 && y <= 475)) {
+            x = this.getRandomInt(150, 345);
         }
-        if( (top > 10 && top <= 15) || (top > 85 && top <= 90)) {
-            left = this.getRandomInt(21, 77);
+        if( (y > 50 && y <= 75) || (y > 425 && y <= 450)) {
+            x = this.getRandomInt(105, 385);
         }
-        if( (top > 15 && top <= 20) || (top > 80 && top <= 85)) {
-            left = this.getRandomInt(15, 84);
+        if( (y > 75 && y <= 100) || (y > 400 && y <= 425)) {
+            x = this.getRandomInt(75, 420);
         }
-        if( (top > 20 && top <= 25) || (top > 75 && top <= 80)) {
-            left = this.getRandomInt(10, 88);
+        if( (y > 100 && y <= 125) || (y > 375 && y <= 400)) {
+            x = this.getRandomInt(50, 440);
         }
-        if( (top > 25 && top <= 30) || (top > 70 && top <= 75)) {
-            left = this.getRandomInt(7, 92);
+        if( (y > 125 && y <= 150) || (y > 350 && y <= 375)) {
+            x = this.getRandomInt(35, 460);
         }
-        if( (top > 30 && top <= 35) || (top > 65 && top <= 70)) {
-            left = this.getRandomInt(4, 94);
+        if( (y > 150 && y <= 175) || (y > 325 && y <= 350)) {
+            x = this.getRandomInt(20, 470);
         }
-        if( (top > 35 && top <= 40) || (top > 60 && top <= 65)) {
-            left = this.getRandomInt(3, 96);
+        if( (y > 175 && y <= 200) || (y > 300 && y <= 325)) {
+            x = this.getRandomInt(15, 480);
         }
-        if( (top > 40 && top <= 45) || (top > 55 && top <= 60)) {
-            left = this.getRandomInt(1, 98);
+        if( (y > 200 && y <= 225) || (y > 275 && y <= 300)) {
+            x = this.getRandomInt(5, 490);
+        }
+        if( (y > 225 && y <= 250) || (y > 250 && y <= 275)) {
+            x = this.getRandomInt(0, 500);
         }
 
+
+        let shift = Math.sqrt((x > 250 ? x - 250 : 250 - x)**2 + (y > 250 ? y - 250 : 250 - y)**2);
+        
         return {
-            left: `${left}%`,
-            top: `${top}%`
+            transform: `translate3d(${x}px, ${y}px, ${operator === 0 ? 0 : +(operator + (Math.sqrt((250)**2 - (shift)**2) === 0 ? 0 : (Math.sqrt((250)**2 - (shift)**2)) ))}px)`
         };
+
     }
 
     render() {
@@ -53,24 +61,29 @@ class SphereItem extends React.PureComponent {
 
         return (
             <>
-                <div
-                    className={cn({
-                        'sphere__item': true,
-                        filled
-                    })}
-                    style={coord}
-                ></div>
-                <div className={
-                    cn({
-                        "sphere__tooltip": true,
-                        active: animated
-                    })
-                    } style={coord}
-                >
-                    {
-                        tooltip &&
-                        <a target="_blank" href={link} className="sphere__link">{ title }</a>
-                    }
+                <div className="sphere__wrapper" style={coord}>
+                    <div
+                        className={cn({
+                            'sphere__item': true,
+                            filled,
+                            active: animated
+                        })}
+                        
+                    ></div>
+                </div>
+                <div className="sphere__wrapper" style={coord}>
+                    <div className={
+                        cn({
+                            "sphere__tooltip": true,
+                            active: animated
+                        })
+                        }
+                    >
+                        {
+                            tooltip &&
+                            <a target="_blank" href={link} className="sphere__link">{ title }</a>
+                        }
+                    </div>
                 </div>
             </>
         );

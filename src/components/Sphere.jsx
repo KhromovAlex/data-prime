@@ -11,7 +11,7 @@ class Sphere extends React.PureComponent {
         super(props);
         this.state = {
           items: [],
-          countPoint: 400,
+          countPoint: 150,
           countTooltip: 5,
           animated: true
         };
@@ -61,8 +61,28 @@ class Sphere extends React.PureComponent {
         })
     }
 
-    render() {
+    renderList() {
         const { items, countPoint, countTooltip, animated } = this.state;
+        
+        return (
+            items.map((item, i) => {
+                return (
+                    i < countPoint &&
+                    <SphereItem
+                        key={`${item.link}${item.filled}`}
+                        title={item.title}
+                        link={item.link}
+                        filled={item.filled}
+                        tooltip={i < countTooltip}
+                        animated={animated}
+                    />
+                );
+            })
+        )
+    }
+
+    render() {
+        const { countPoint, countTooltip, animated } = this.state;
         
         return (
             <div className="sphere">
@@ -75,19 +95,7 @@ class Sphere extends React.PureComponent {
                     }
                 >
                     {
-                        items.map((item, i) => {
-                            return (
-                                i < countPoint &&
-                                <SphereItem
-                                    key={`${item.link}${item.filled}`}
-                                    title={item.title}
-                                    link={item.link}
-                                    filled={item.filled}
-                                    tooltip={i < countTooltip}
-                                    animated={animated}
-                                />
-                            );
-                        })
+                        this.renderList()
                     }
                 </div>
                 <label className="sphere__label-point">
