@@ -13,7 +13,7 @@ class SphereItem extends React.PureComponent {
         const y = this.getRandomInt(0, 500);
         let x = this.getRandomInt(0, 500);
         let z = this.getRandomInt(-250, 250);
-        let operator = String(z)[0] === '-' ? '-' : String(z)[0] === '0' ? 0 : '+';
+        let operator = String(z)[0] === '-' ? '-' : '+';
 
         if( (y >= 0 && y <= 25) || (y > 475)) {
             x = this.getRandomInt(225, 275);
@@ -46,11 +46,10 @@ class SphereItem extends React.PureComponent {
             x = this.getRandomInt(0, 500);
         }
 
-
-        let shift = Math.sqrt((x > 250 ? x - 250 : 250 - x)**2 + (y > 250 ? y - 250 : 250 - y)**2);
+        let shift = Math.min( Math.sqrt((x > 250 ? x - 250 : 250 - x)**2 + (y > 250 ? y - 250 : 250 - y)**2), 250 );
         
         return {
-            transform: `translate3d(${x}px, ${y}px, ${operator === 0 ? 0 : +(operator + (Math.sqrt((250)**2 - (shift)**2) === 0 ? 0 : (Math.sqrt((250)**2 - (shift)**2)) ))}px)`
+            transform: `translate3d(${x}px, ${y}px, ${(Math.sqrt((250)**2 - (shift)**2) === 0 ? 0 : +(operator +  (Math.sqrt((250)**2 - (shift)**2)) ))}px)`
         };
 
     }
