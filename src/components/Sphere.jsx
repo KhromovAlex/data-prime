@@ -11,10 +11,15 @@ class Sphere extends React.PureComponent {
         super(props);
         this.state = {
           items: [],
-          countPoint: 150,
+          countPoint: 300,
           countTooltip: 5,
           animated: true
         };
+    }
+
+    static defaultProps = {
+        sizePoint: 7,
+        radius: 250
     }
 
     componentDidMount() {
@@ -63,6 +68,7 @@ class Sphere extends React.PureComponent {
 
     renderList() {
         const { items, countPoint, countTooltip, animated } = this.state;
+        const { sizePoint, radius } = this.props;
         
         return (
             items.map((item, i) => {
@@ -75,6 +81,8 @@ class Sphere extends React.PureComponent {
                         filled={item.filled}
                         tooltip={i < countTooltip}
                         animated={animated}
+                        sizePoint={sizePoint}
+                        radius={radius}
                     />
                 );
             })
@@ -83,29 +91,39 @@ class Sphere extends React.PureComponent {
 
     render() {
         const { countPoint, countTooltip, animated } = this.state;
+        const { radius } = this.props;
+        
+        const styleSphere = {
+            width: radius * 2,
+            height: radius * 2
+        };
         
         return (
-            <div className="sphere">
-                <div
-                    className={
-                        cn({
-                            "sphere__list": true,
-                            active: animated
-                        })
-                    }
-                >
-                    {
-                        this.renderList()
-                    }
+            <div className="sphere__container">
+                <div className="sphere" style={styleSphere}>
+                    <div
+                        className={
+                            cn({
+                                "sphere__list": true,
+                                active: animated
+                            })
+                        }
+                    >
+                        {
+                            this.renderList()
+                        }
+                    </div>
                 </div>
-                <label className="sphere__label-point">
-                    <span className="sphere__label-text">Count Point</span>
-                    <input onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} type="number" name="countPoint" value={countPoint} onChange={this.handleCount}/>
-                </label>
-                <label className="sphere__label-tooltip">
-                    <span className="sphere__label-text">Count Tooltip</span>
-                    <input onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} type="number" name="countTooltip" value={countTooltip} onChange={this.handleCount}/>
-                </label>
+                <div className="sphere__options">
+                    <label className="sphere__label-point">
+                        <span className="sphere__label-text">Count Point</span>
+                        <input onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} type="number" name="countPoint" value={countPoint} onChange={this.handleCount}/>
+                    </label>
+                    <label className="sphere__label-tooltip">
+                        <span className="sphere__label-text">Count Tooltip</span>
+                        <input onBlur={this.handleOnBlur} onFocus={this.handleOnFocus} type="number" name="countTooltip" value={countTooltip} onChange={this.handleCount}/>
+                    </label>
+                </div>
             </div>
         );
     }  
