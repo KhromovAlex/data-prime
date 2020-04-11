@@ -2,7 +2,7 @@
 
 
 ## Demo Link
-[https://khromovalex.github.io/data-prime/dist/](https://khromovalex.github.io/data-prime/dist/)
+[http://xn--90agmq6a.xn--p1ai/data-prime/](http://xn--90agmq6a.xn--p1ai/data-prime/)
 
 
 ## Available Scripts
